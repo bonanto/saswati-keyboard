@@ -317,11 +317,11 @@ If you find this project helpful, please give it a ⭐ on GitHub!
 
 **Adding Saswati to the IBus Menu:**
 
-| Step 2: Access the IBus panel menu | Step 3: Click 'Add' to find new layouts |
+| Step 1: Access the IBus panel menu | Step 2: Click 'Add' to find new layouts |
 | :---: | :---: |
-| ![Step 2](screenshots/kde-add-step1.png) | ![Step 3](screenshots/kde-add-step2.png) |
-| **Step 4: Search for and select Bengali** | **Step 5: Choose 'Saswati Inscript (India)'** |
-| ![Step 4](screenshots/kde-add-step3.png) | ![Step 5](screenshots/kde-add-step4.png) |
+| ![Step 1](screenshots/kde-add-step1.png) | ![Step 2](screenshots/kde-add-step2.png) |
+| **Step 3: Search for and select Bengali** | **Step 4: Choose 'Saswati Inscript (India)'** |
+| ![Step 3](screenshots/kde-add-step3.png) | ![Step 4](screenshots/kde-add-step4.png) |
 
 <div align="center">
   <br>
