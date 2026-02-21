@@ -376,5 +376,5 @@ If you find this project helpful, please give it a ⭐ on GitHub!
 
 ---
 <div align="center">
-**শুভেচ্ছা! Happy typing in Bengali! 🇮🇳**
+<b>শুভেচ্ছা! Happy typing in Bengali!</b>🇮🇳
 </div>
