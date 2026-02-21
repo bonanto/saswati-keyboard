@@ -304,11 +304,62 @@ If you find this project helpful, please give it a ⭐ on GitHub!
 
 ## 📸 Screenshots
 
-![Saswati Keyboard in IBus Menu](screenshots/ibus-menu.png)
-Saswati keyboard in IBus input source selector
+### ⚙️ KDE Plasma Setup Guide
 
-![Typing Example](screenshots/typing-example.png)
-Typing Bengali with Saswati keyboard
+<div align="center">
+  <figure>
+    <img src="screenshots/kde-ibus-settings.png" alt="KDE Settings Location" width="700"/>
+    <br>
+    <figcaption><i>Step 1: Locate IBus Preferences within KDE System Settings</i></figcaption>
+  </figure>
+</div>
+<br>
+
+**Adding Saswati to the IBus Menu:**
+
+| Step 2: Access the IBus panel menu | Step 3: Click 'Add' to find new layouts |
+| :---: | :---: |
+| ![Step 2](screenshots/kde-add-step1.png) | ![Step 3](screenshots/kde-add-step2.png) |
+| **Step 4: Search for and select Bengali** | **Step 5: Choose 'Saswati Inscript (India)'** |
+| ![Step 4](screenshots/kde-add-step3.png) | ![Step 5](screenshots/kde-add-step4.png) |
+
+<div align="center">
+  <br>
+  <b>After Applying Settings</b><br>
+  <img src="screenshots/kde-after-setting.png" alt="After Setting" width="700"/>
+</div>
+<br>
+
+---
+
+### ⌨️ Typing & Usage Examples
+
+**Document Editors:**
+
+| KWrite Text Editor | OnlyOffice Document (Part 1) |
+| :---: | :---: |
+| ![KWrite](screenshots/typing-kwrite.png)<br>*Simple typing test in KWrite* | ![OnlyOffice 1](screenshots/typing-onlyoffice-1.png)<br>*Typing Bengali in OnlyOffice* |
+
+<div align="center">
+  <br>
+  <b>OnlyOffice Document (Part 2)</b><br>
+  <img src="screenshots/typing-onlyoffice-2.png" alt="OnlyOffice Additional Example" width="700"/>
+</div>
+<br>
+
+**System Integration & Switching:**
+
+| KDE Notification Area | Static Switching Menu |
+| :---: | :---: |
+| ![System Tray](screenshots/kde-notification-tray.png)<br>*Saswati indicator in the KDE panel* | ![Switching Menu](screenshots/keyboard-switching-static.png)<br>*Input method selector menu* |
+
+<div align="center">
+  <br>
+  <b>Seamless Live Switching (Super+Space)</b><br>
+  <img src="screenshots/keyboard_swithcing_SUPER-SPACE.webp" alt="Animated Keyboard Switching" width="600"/>
+  <br>
+  <figcaption><i>Animated demonstration of switching layouts instantly</i></figcaption>
+</div>
 
 ---
 
