@@ -336,14 +336,24 @@ If you find this project helpful, please give it a ⭐ on GitHub!
 
 **Document Editors:**
 
-| KWrite Text Editor | OnlyOffice Document (Part 1) |
-| :---: | :---: |
-| ![KWrite](screenshots/typing-kwrite.png)<br>*Simple typing test in KWrite* | ![OnlyOffice 1](screenshots/typing-onlyoffice-1.png)<br>*Typing Bengali in OnlyOffice* |
+**Document Editors:**
 
 <div align="center">
+  <b>KWrite Text Editor</b><br>
+  <img src="screenshots/typing-kwrite.png" alt="KWrite Typing Example" width="800"/>
   <br>
+  <i>Simple typing test in KWrite</i>
+  <br><br><br>
+
+  <b>OnlyOffice Document (Part 1)</b><br>
+  <img src="screenshots/typing-onlyoffice-1.png" alt="OnlyOffice Typing Example 1" width="800"/>
+  <br>
+  <i>Typing Bengali in OnlyOffice</i>
+  <br><br><br>
+
   <b>OnlyOffice Document (Part 2)</b><br>
-  <img src="screenshots/typing-onlyoffice-2.png" alt="OnlyOffice Additional Example" width="700"/>
+  <img src="screenshots/typing-onlyoffice-2.png" alt="OnlyOffice Typing Example 2" width="800"/>
+  <br>
 </div>
 <br>
 
