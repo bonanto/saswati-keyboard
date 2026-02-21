@@ -349,10 +349,13 @@ If you find this project helpful, please give it a ⭐ on GitHub!
 
 **System Integration & Switching:**
 
+<div align="center">
+
 | KDE Notification Area | Static Switching Menu |
 | :---: | :---: |
 | ![System Tray](screenshots/kde-notification-tray.png)<br>*Saswati indicator in the KDE panel* | ![Switching Menu](screenshots/keyboard-switching-static.png)<br>*Input method selector menu* |
 
+</div>
 <div align="center">
   <br>
   <b>Seamless Live Switching (Super+Space)</b><br>
