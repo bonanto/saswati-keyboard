@@ -122,7 +122,11 @@ wget -qO- [https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/insta
 git clone [https://github.com/bonanto/saswati-keyboard.git](https://github.com/bonanto/saswati-keyboard.git)
 cd saswati-keyboard
 
-# Run installer directly via bash
+# Method 1: Make scripts executable and run (Standard)
+chmod +x install.sh uninstall.sh
+sudo ./install.sh
+
+# Method 2: Run directly via bash (Use if Method 1 fails)
 sudo bash install.sh
 ```
 
@@ -223,15 +227,21 @@ CapsLock ON + Shift+K → ক (cancel out)
 ## 🗑️ Uninstallation
 
 ```bash
-# If you cloned the repository
+# If you cloned the repository locally
 cd saswati-keyboard
+
+# Method 1: Make script executable and run (Standard)
+chmod +x uninstall.sh
+sudo ./uninstall.sh
+
+# Method 2: Run directly via bash (Use if Method 1 fails)
 sudo bash uninstall.sh
 
-# Or download and run
+# Alternatively, download and run without cloning
 curl -fsSL [https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh](https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh) | sudo bash
 ```
 
-Then remove the keyboard from your System Settings and restart.
+Then remove the keyboard from your System Settings and **Restart**.
 
 ---
 
