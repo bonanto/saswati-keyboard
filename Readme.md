@@ -60,9 +60,9 @@ Hence, in Honor of Saswati, this is a very small effort to make the world better
 —
 এইখানে সমস্ত বাংলা লেখাটা এই কীবোর্ড ব্যবহার করেই লেখা, এবং Saswati Inscript Keyboard এর প্রথম লেখা। এবং সফল টেস্টিং।
 
-- ধন্যবাদান্তে, ভালোবাসা সহ - ❤️
-- বনান্ত
-- কলকাতা, একুশে ফেব্রুয়ারী, ২০২৬ -- আন্তর্জাতিক মাতৃভাষা দিবস।
+ ধন্যবাদান্তে, ভালোবাসা সহ - ❤️
+ বনান্ত
+ কলকাতা, একুশে ফেব্রুয়ারী, ২০২৬ -- আন্তর্জাতিক মাতৃভাষা দিবস।
 
 **For Windows Users:** The original Windows version of this keyboard, Rabiraag, is available here: [Rabiraag - Windows Bengali Keyboard](https://github.com/bonanto/rabiraag)
 
