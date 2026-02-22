@@ -133,6 +133,13 @@ sudo ./install.sh
 ```bash
 sudo bash install.sh
 ```
+**Method 3: Make scripts executable and run (easiest)**  
+##### Download 3 files from this repo: Install.sh, main.py and Uninstall.sh; 
+Put All three in a folder and Open the folder in Terminal (Right Click > Open in Terminal / Right Click > Actions > Open Terminal Here)
+```bash
+sudo bash install.sh  
+```
+
 
 ### Install using Packages:
 **Download** the Provided **DEB** (for Ubuntu, Mint, Debian etc.) or **RPM** (for Fedora, RHEL, openSUSE etc), and Install using Package Managers or via Terminal. It automatically installs everything needed, and configures itself. Then follow the **Post Installation Setup**
