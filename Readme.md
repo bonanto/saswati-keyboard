@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Linux-green.svg)]()
 [![Language](https://img.shields.io/badge/Language-Bengali-orange.svg)]()
 
-**Saswati Bengali Keyboard** is a comprehensive Bengali (Bangla) keyboard layout for Linux with full support for conjunct characters, designed for seamless typing in the Bengali script on any Linux distribution. ***I wrote this for myself, then I thought It might be helpful for others; That's why the project is here in GitHub!***
+**Saswati Bengali Keyboard** is a comprehensive Bengali (Bangla) keyboard layout for Linux with full support for conjunct characters, designed for seamless typing in the Bengali script on any Linux distribution. ***I wrote program this for myself, then I thought It might be helpful for others; That's why the project is here in GitHub! -- You can read the story below***
 
 ## 🌟 Features
 
