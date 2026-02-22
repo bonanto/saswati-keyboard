@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component>
+  <name>org.freedesktop.IBus.Saswati</name>
+  <description>Saswati Bangla (India) Inscript Keyboard</description>
+  <exec>/usr/share/ibus-saswati/saswati --ibus</exec>
+  <version>1.0.0</version>
+  <author>Bonanto &lt;bonanto18@protonmail.com&gt;</author>
+  <license>GPL</license>
+  <homepage>https://github.com/bonanto/saswati-keyboard</homepage>
+  <textdomain>ibus-saswati</textdomain>
+
+  <engines>
+    <engine>
+      <name>saswati</name>
+      <longname>Saswati Inscript (India)</longname>
+      <description>Saswati Bangla (India) Inscript Keyboard</description>
+      <language>bn</language>
+      <license>GPL</license>
+      <author>Bonanto &lt;bonanto18@protonmail.com&gt;</author>
+      <icon>/usr/share/ibus-saswati/icons/saswati.png</icon>
+      <layout>us</layout>
+      <rank>99</rank>
+    </engine>
+  </engines>
+</component>

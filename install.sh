@@ -451,12 +451,44 @@ EOFKXKB
         print_success "KDE keyboard settings updated"
     fi
 
-    # Method 3: GNOME Wayland
-    if [[ "$DE" == *"GNOME"* ]] || [[ "$DE" == *"gnome"* ]]; then
-        print_info "Applying GNOME Wayland settings..."
+    # Method 3: GNOME/Cinnamon/MATE (all GNOME-based DEs on X11 or Wayland)
+    if [[ "$DE" == *"GNOME"* ]] || [[ "$DE" == *"gnome"* ]] || \
+       [[ "$DE" == *"Cinnamon"* ]] || [[ "$DE" == *"cinnamon"* ]] || \
+       [[ "$DE" == *"MATE"* ]] || [[ "$DE" == *"mate"* ]] || \
+       [[ "$DISTRO" == *"mint"* ]] || [[ "$DISTRO" == *"ubuntu"* ]]; then
+
+        print_info "Applying GNOME-based DE settings..."
+
+        # Method 3A: gsettings (works for GNOME, Cinnamon, MATE, Budgie)
         sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
             gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:ralt_switch']" 2>/dev/null || true
-        print_success "GNOME keyboard settings updated"
+
+        # Method 3B: dconf (more persistent)
+        sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
+            dconf write /org/gnome/desktop/input-sources/xkb-options "['lv3:ralt_switch']" 2>/dev/null || true
+
+        print_success "GNOME-based DE keyboard settings updated"
+
+        # Disable built-in layout switching shortcuts on ALL GNOME-based systems
+        print_info "Disabling built-in layout switching shortcuts..."
+
+        # For GNOME
+        sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
+            gsettings set org.gnome.desktop.wm.keybindings switch-input-source "[]" 2>/dev/null || true
+        sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
+            gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]" 2>/dev/null || true
+
+        # For Cinnamon
+        sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
+            dconf write /org/cinnamon/desktop/keybindings/wm/switch-input-source "['']" 2>/dev/null || true
+        sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
+            dconf write /org/cinnamon/desktop/keybindings/wm/switch-input-source-backward "['']" 2>/dev/null || true
+
+        # For MATE
+        sudo -u "$REAL_USER" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$REAL_UID/bus" \
+            gsettings set org.mate.Marco.global-keybindings switch-to-workspace-1 "disabled" 2>/dev/null || true
+
+        print_success "Built-in layout switching disabled"
     fi
 
 else
@@ -486,6 +518,34 @@ fi
 # ============================================================================
 
 print_header "PHASE 7: REGISTERING KEYBOARD IN IBUS"
+
+# Create AltGr persistence script and disable layout switching shortcuts
+if [[ "$DE" == *"GNOME"* ]] || [[ "$DE" == *"gnome"* ]] || \
+   [[ "$DE" == *"Cinnamon"* ]] || [[ "$DE" == *"cinnamon"* ]] || \
+   [[ "$DE" == *"MATE"* ]] || [[ "$DE" == *"mate"* ]] || \
+   [[ "$DISTRO" == *"mint"* ]] || [[ "$DISTRO" == *"ubuntu"* ]]; then
+
+    print_info "Creating AltGr persistence script for GNOME-based DE..."
+
+    AUTOSTART_DIR="$REAL_HOME/.config/autostart"
+    mkdir -p "$AUTOSTART_DIR"
+
+    # Create autostart desktop entry with both AltGr fix and shortcut disabling
+    cat > "$AUTOSTART_DIR/saswati-config.desktop" << 'EOFCONFIG'
+[Desktop Entry]
+Type=Application
+Name=Saswati Keyboard Configuration
+Exec=sh -c "sleep 3 && setxkbmap -option lv3:ralt_switch && gsettings set org.gnome.desktop.wm.keybindings switch-input-source '[]' && gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward '[]'"
+Icon=input-keyboard
+Comment=Ensure AltGr and shortcuts work for Saswati keyboard
+X-GNOME-Autostart-enabled=true
+NoDisplay=true
+EOFCONFIG
+
+    chown "$REAL_USER:$REAL_USER" "$AUTOSTART_DIR/saswati-config.desktop"
+    chmod 644 "$AUTOSTART_DIR/saswati-config.desktop"
+    print_success "Configuration persistence script created"
+fi
 
 # Clear IBus cache
 print_info "Clearing IBus cache..."
@@ -614,18 +674,52 @@ else
 fi
 
 echo ""
-echo -e "${YELLOW}4. SWITCH LAYOUTS${NC}"
-echo -e "   Use Super+Space (or your configured hotkey)"
+echo -e "${YELLOW}4. CONFIGURE IBUS SHORTCUT${NC}"
+
+if [[ "$DE" == *"Cinnamon"* ]] || [[ "$DE" == *"GNOME"* ]] || [[ "$DE" == *"MATE"* ]] || \
+   [[ "$DISTRO" == *"mint"* ]] || [[ "$DISTRO" == *"ubuntu"* ]]; then
+    echo -e "   ${CYAN}For GNOME-based systems (GNOME/Cinnamon/MATE/Ubuntu):${NC}"
+    echo -e "   • The installer has disabled system layout switching"
+    echo -e "   • Open IBus Preferences: ${GREEN}ibus-setup${NC}"
+    echo -e "   • Go to 'General' tab → 'Keyboard Shortcuts'"
+    echo -e "   • Click on 'Next input method' field"
+    echo -e "   • Press: ${GREEN}Ctrl+Space${NC} (recommended) or ${GREEN}Alt+Shift${NC}"
+    echo -e "   • Click Apply and OK"
+    echo ""
+    echo -e "   ${YELLOW}Why not Super+Space?${NC}"
+    echo -e "   Super+Space can be glitchy on X11-based systems."
+    echo -e "   ${GREEN}Ctrl+Space${NC} works reliably on all systems!"
+    echo ""
+    echo -e "   ${CYAN}Alternative shortcuts that work well:${NC}"
+    echo -e "   • ${GREEN}Ctrl+Space${NC} - Best option, no conflicts"
+    echo -e "   • ${GREEN}Alt+Shift${NC} - Traditional, widely compatible"
+    echo -e "   • ${GREEN}Shift+Space${NC} - Simple, works everywhere"
+else
+    echo -e "   ${CYAN}Recommended shortcut:${NC}"
+    echo -e "   • Open: ${GREEN}ibus-setup${NC}"
+    echo -e "   • General tab → Keyboard Shortcuts"
+    echo -e "   • Set 'Next input method' to: ${GREEN}Ctrl+Space${NC}"
+fi
+
+echo ""
+echo -e "${YELLOW}5. TEST YOUR KEYBOARD${NC}"
+echo -e "   • Switch layouts with your chosen shortcut"
 echo ""
 echo -e "${CYAN}═══════════════════════════════════════════════════════${NC}"
 echo ""
 
 echo -e "${GREEN}✓ Test Your Keyboard:${NC}"
+echo -e "  • Switch to Saswati (use your configured shortcut)"
 echo -e "  • Type 'q' → ক্ষ (conjunct)"
 echo -e "  • Type 'k' → ক"
 echo -e "  • Type Right Alt+g → জ্ঞ (conjunct)"
 echo -e "  • Type Right Alt+w → (nothing - empty layer)"
 echo -e "  • CapsLock ON, type 'k' → ক (CapsLock has no effect!)"
+echo -e "  • Switch back to English → AltGr should work when you return!"
+echo ""
+
+echo -e "${GREEN}✓ Recommended Shortcut: Ctrl+Space${NC}"
+echo -e "  Works reliably on ALL Linux systems (X11, Wayland, any DE)"
 echo ""
 
 echo -e "${GREEN}✓ No Warnings:${NC}"

@@ -12,9 +12,12 @@ from gi.repository import IBus
 from gi.repository import GLib
 from gi.repository import GObject
 import sys
+import subprocess
 
 # Key mapping dictionary
 # Format: (keyval, state) -> output_text
+# IMPORTANT: If a key+modifier combination is not in this dict, it will pass through
+# This prevents empty AltGr layers from outputting base characters
 
 KEY_MAP = {
     # ========== NORMAL KEYS (NO MODIFIERS) ==========
@@ -159,24 +162,67 @@ class SaswatiEngine(IBus.Engine):
         super(SaswatiEngine, self).__init__()
         self.is_invalidate = False
         self.preedit_string = ""
+        self._altgr_timer = None
+
+    def _apply_altgr_fix(self):
+        """Apply AltGr fix - called on focus and with delay"""
+        try:
+            # Method 1: setxkbmap (works for most systems)
+            subprocess.run(['setxkbmap', '-option', 'lv3:ralt_switch'],
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL,
+                         timeout=2)
+        except:
+            pass
+
+        try:
+            # Method 2: xmodmap as fallback (older systems)
+            subprocess.run(['xmodmap', '-e', 'keycode 108 = ISO_Level3_Shift'],
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL,
+                         timeout=2)
+        except:
+            pass
+
+        return False  # Don't repeat timer
+
+    def _schedule_altgr_fix(self):
+        """Schedule AltGr fix with slight delay to override system changes"""
+        # Cancel existing timer if any
+        if self._altgr_timer:
+            GLib.source_remove(self._altgr_timer)
+
+        # Apply immediately
+        self._apply_altgr_fix()
+
+        # Schedule for 500ms later (after system might reset it)
+        self._altgr_timer = GLib.timeout_add(500, self._apply_altgr_fix)
+
+        # And once more at 1000ms
+        GLib.timeout_add(1000, self._apply_altgr_fix)
 
     def do_process_key_event(self, keyval, keycode, state):
+        """Process key press events"""
+
+        # Ignore key release events
         if state & IBus.ModifierType.RELEASE_MASK:
             return False
 
-        # Hardware Shift validation to bypass display server (Wayland/X11) LOCK_MASK inconsistencies
-        is_shift = bool(state & IBus.ModifierType.SHIFT_MASK)
-
-        if is_shift:
-            if IBus.KEY_a <= keyval <= IBus.KEY_z:
-                keyval -= 32
-        else:
-            if IBus.KEY_A <= keyval <= IBus.KEY_Z:
-                keyval += 32
-
-        # Strip lock masks
+        # Remove CapsLock and NumLock from state
         state = state & ~IBus.ModifierType.LOCK_MASK
         state = state & ~IBus.ModifierType.MOD2_MASK
+
+        # Hardware Shift validation to bypass display server (Wayland/X11) LOCK_MASK inconsistencies
+        # This handles CapsLock by normalizing keyval based on actual Shift state
+        is_shift = bool(state & IBus.ModifierType.SHIFT_MASK)
+        if is_shift:
+            # Shift is pressed: ensure keyval is uppercase
+            if IBus.KEY_a <= keyval <= IBus.KEY_z:
+                keyval -= 32  # Convert to uppercase
+        else:
+            # Shift is NOT pressed: ensure keyval is lowercase
+            if IBus.KEY_A <= keyval <= IBus.KEY_Z:
+                keyval += 32  # Convert to lowercase
 
         # Normalize state to relevant modifiers only
         relevant_state = state & (
@@ -186,14 +232,16 @@ class SaswatiEngine(IBus.Engine):
             IBus.ModifierType.MOD5_MASK
         )
 
-        # Ignore Ctrl/Alt combinations to preserve system shortcuts
+        # Don't process Ctrl combinations (let system shortcuts work)
         if (relevant_state & IBus.ModifierType.CONTROL_MASK):
             return False
 
+        # Don't process Alt combinations (let system shortcuts work)
         if (relevant_state & IBus.ModifierType.MOD1_MASK) and \
            not (relevant_state & IBus.ModifierType.MOD5_MASK):
             return False
 
+        # Try to find exact mapping
         key_combo = (keyval, relevant_state)
         output = KEY_MAP.get(key_combo)
 
@@ -201,35 +249,43 @@ class SaswatiEngine(IBus.Engine):
             self.commit_text(IBus.Text.new_from_string(output))
             return True
 
-        # Block undefined AltGr combinations
+        # If AltGr is pressed but no mapping found, block the key
+        # This prevents AltGr+w from typing the base character
         if relevant_state & IBus.ModifierType.MOD5_MASK:
-            return True
+            return True  # Consume the key, output nothing
 
+        # Let other keys pass through
         return False
 
     def do_focus_in(self):
+        """Called when this input method gains focus"""
+        # Re-apply AltGr configuration when switching to this keyboard
+        # This fixes the issue on GNOME/Cinnamon/Mint where AltGr gets reset
+        self._schedule_altgr_fix()
         self.register_properties(IBus.PropList())
 
     def do_focus_out(self):
-        pass
+        """Called when this input method loses focus"""
+        # Cancel any pending timers
+        if self._altgr_timer:
+            GLib.source_remove(self._altgr_timer)
+            self._altgr_timer = None
 
     def do_reset(self):
+        """Called when input context is reset"""
         self.preedit_string = ""
 
     def do_enable(self):
-        pass
+        """Called when this input method is enabled"""
+        # Apply AltGr fix when keyboard is first enabled
+        self._schedule_altgr_fix()
 
     def do_disable(self):
-        pass
-
-
-def main():
-    IBus.init()
-    exec_by_ibus = False
-    if "--ibus" in sys.argv:
-        exec_by_ibus = True
-
-    IMApp(exec_by_ibus).run()
+        """Called when this input method is disabled"""
+        # Clean up timers
+        if self._altgr_timer:
+            GLib.source_remove(self._altgr_timer)
+            self._altgr_timer = None
 
 
 class IMApp:
@@ -247,7 +303,7 @@ class IMApp:
             self.__component = IBus.Component.new(
                 "org.freedesktop.IBus.Saswati",
                 "Saswati Bangla (India) Inscript Keyboard",
-                "1.0.0",
+                "1.0.2",
                 "GPL",
                 "Bonanto <bonanto18@protonmail.com>",
                 "https://github.com/bonanto/saswati-keyboard",
@@ -272,6 +328,15 @@ class IMApp:
 
     def __bus_disconnected_cb(self, bus):
         self.__mainloop.quit()
+
+
+def main():
+    IBus.init()
+    exec_by_ibus = False
+    if "--ibus" in sys.argv:
+        exec_by_ibus = True
+
+    IMApp(exec_by_ibus).run()
 
 
 if __name__ == "__main__":

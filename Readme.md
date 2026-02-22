@@ -50,11 +50,11 @@
 — সুতরাং আমার দরকার পড়ল এমন এক কী-বোর্ডের যেটা আমাকে সম্পূর্ণ নিয়ন্ত্রণ দেবে। আমার যেখানে যেমন অক্ষর, যুক্তাক্ষর, যতিচিহ্ন, সাধারণ চিহ্ন — মোটকথা যা ইচ্ছে হবে তাই ই লিখতে পারব। তার জন্য Phonetic এর বদলে Inscript ব্যবহার করতে হবে, যেখানে বাংলা হাতে লেখার মত করে লিখতে পারি, অর্থাৎ, প্রতিটা অক্ষর আর বানান, চিহ্ন, কার, ফলা – সব নিজে লেখা যায়। ইংরেজি থেকে বাংলা করে দেবে না সফটওয়্যার। 
 এবারে, বাজারে অনেক Inscript কীবোর্ড আছে, কিন্তু তাতে অক্ষরগুলো উল্টোপাল্টা। S চাপলে “স” নাও আসতে পারে। — অনেককাল আগে একটা সফটওয়্যার ছিল, যে ঠিক এইভাবে, যেমন আমার প্রয়োজন, লিখতো। তার নাম Bangla Word. কিন্তু সেটা দিয়ে কেবল ওর মধ্যেই লেখা যেত। কারণ ওটা ইউনিকোড নয়, এবং ওর লেখা বাংলা আর কোথাও সাপোর্ট করে না। কেবল ANSI যে যে সফটওয়্যার ব্যবহার করে, তাতেই সাপোর্ট করে – যেমন – Photoshop, CorelDraw, এইসব। মাইক্রোসফট ওয়ার্ড, বা উইন্ডোজের সিস্টেমে তা কাজ করে না।
 
-তাই প্রথম কী-বোর্ড লে-আউটটা বানিয়েছিলাম Windows এর জন্য। এবং অবশ্যই নিজের ব্যবহারের জন্য। কারণ দ্রুত নির্ভুল বাংলা টাইপের জন্য আর কোনো সফটওয়্যার আমার প্রয়োজন মেটাতে পারেনি। অগত্যা সমাধান – নিজে তৈরী করা। তৈরী হল Windows এর জন্য বাংলা কীবোর্ড – রবিরাগ। নাম রবীন্দ্রনাথের প্রতি ভালোবাসার কারণে। সেটা সাল ২০০৮।
+তাই প্রথম কী-বোর্ড লে-আউটটা বানিয়েছিলাম Windows এর জন্য। এবং অবশ্যই নিজের ব্যবহারের জন্য। কারণ দ্রুত নির্ভুল বাংলা টাইপের জন্য আর কোনো সফটওয়্যার আমার প্রয়োজন মেটাতে পারেনি। অগত্যা সমাধান – নিজে তৈরী করা। তৈরী হল Windows এর জন্য বাংলা কীবোর্ড – [রবিরাগ](https://github.com/bonanto/rabiraag)। নাম রবীন্দ্রনাথের প্রতি ভালোবাসার কারণে। সেটা সাল ২০০৮।
 
 এবং আজ, তার প্রায় সতের বছর পরে, আজ ২১শে ফেব্রুয়ারীতে তাকে নিয়ে এলাম লিনাক্সে। কারণ আমি এতদিন আমার রোজকার কাজের জন্য লিনাক্স ব্যবহার করিনি। তা ছিল কেবল এক্সপেরিমেন্টের জন্য। কাজের জন্য Windows ই সবসময় প্রথম ছিল। অবশ্য এখনো তাই আছে। তবে বিশেষ কিছু কাজের জন্য দরকার পড়ে গেল। ফলাফল পাইথন ব্যবহার করে, রবিরাগের পোর্ট এল লিনাক্সে, আর, তার নাম গেল পাল্টে।
 এখানে তার পরিচিতি – **শাশ্বতী**। মানে, Bangla - Saswati Inscript (India) Keybord. — কেন এই নাম?
-কারণ তিনি না থাকলে বা তাকে না চিনলে লিনাক্সে ঐ কীবোর্ড আসতোই না হয়তো। এমন একজন মানুষ, যে প্রতিনিয়ত হাজার লড়াই করেও নিজের পথ, শিক্ষা, আদর্শ থেকে এক পা বিচ্যুত হয়নি, শিক্ষা, আর জ্ঞানের চেয়ে বড় যার কাছে কিচ্ছু নেই, যার কাছে জ্ঞানের পিপাসাই শেষ কথা, যার রুচির সামনে মাথা নত করা যায় সসম্মানে, সে এইটুকু সম্মান ডিজার্ভ করে। — এবং এই একই কারণে, এই কীবোর্ড সকলের জন্য GPL (GNU General Public License) এর মাধ্যমে উন্মুক্ত, ফ্রী থাকবে। কারণ Knowledge Should be Free...জ্ঞান ও ভাষা চির-উন্মুক্ত হওয়াই বাঞ্ছনীয়!
+কারণ তিনি না থাকলে বা তাকে না চিনলে লিনাক্সে ঐ কীবোর্ড আসতোই না হয়তো। এমন একজন মানুষ, যে প্রতিনিয়ত হাজার লড়াই করেও নিজের পথ, শিক্ষা, আদর্শ থেকে এক পা বিচ্যুত হয়নি, শিক্ষা, আর জ্ঞানের চেয়ে বড় যার কাছে কিচ্ছু নেই, যার কাছে জ্ঞানের পিপাসাই শেষ কথা, যার রুচির সামনে মাথা নত করা যায় সসম্মানে, তার মর্যাদার প্রতি সম্মানে এই নাম। — এবং এই একই কারণে, এই কীবোর্ড সকলের জন্য GPL (GNU General Public License) এর মাধ্যমে উন্মুক্ত, ফ্রী থাকবে। কারণ Knowledge Should be Free...জ্ঞান ও ভাষা চির-উন্মুক্ত হওয়াই বাঞ্ছনীয়!
 
 Hence, in Honor of Saswati, this is a very small effort to make the world better. To make education a little better.
 —
@@ -75,6 +75,7 @@ Hence, in Honor of Saswati, this is a very small effort to make the world better
 - **Python**: Python 3.6 or higher
 - **IBus**: Version 1.5.0 or higher
 - **Memory**: Minimal (< 10 MB)
+- **Disk Space**: Depending on dependencies (20-100MB approx)
 
 ### Distribution-Specific Packages
 Automatically installed by the installer:
@@ -104,31 +105,39 @@ Automatically installed by the installer:
 
 ### One-Command Installation (Recommended)
 
+#### Download and run installer
 ```bash
-# Download and run installer
 curl -fsSL [https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/install.sh](https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/install.sh) | sudo bash
 ```
 
-Or using wget:
+#### Or using wget:
 
 ```bash
 wget -qO- [https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/install.sh](https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/install.sh) | sudo bash
 ```
 
 ### Manual Installation
-
+#### First: Clone the repository, then use any one method from below:
 ```bash
-# Clone the repository
 git clone [https://github.com/bonanto/saswati-keyboard.git](https://github.com/bonanto/saswati-keyboard.git)
+
 cd saswati-keyboard
-
-# Method 1: Make scripts executable and run (Standard)
-chmod +x install.sh uninstall.sh
+```
+**Method 1: Make scripts executable and run (Standard)**  
+```bash
+chmod +x install.sh uninstall.sh  
 sudo ./install.sh
+```
 
-# Method 2: Run directly via bash (Use if Method 1 fails)
+**Method 2: Run directly via bash (Use if Method 1 fails)**  
+```bash
 sudo bash install.sh
 ```
+
+### Install using Packages:
+**Download** the Provided **DEB** (for Ubuntu, Mint, Debian etc.) or **RPM** (for Fedora, RHEL, openSUSE etc), and Install using Package Managers or via Terminal. It automatically installs everything needed, and configures itself. Then follow the **Post Installation Setup**
+#### Security & Verification
+All releases of the Saswati keyboard packages are cryptographically signed. You can verify the signature, please read our [Package Verification Guide](verify.md) for instructions on importing our public key and verifying `.deb`, `.rpm`, or source files.
 
 ### Post-Installation Setup
 
@@ -151,29 +160,72 @@ For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md)
 
 ## 🐛 Troubleshooting
 
-Keyboard not appearing in list
+### Keyboard not appearing in list
 
+#### Restart IBus  
 ```bash
-# Restart IBus
 pkill ibus-daemon
 ibus-daemon -drxR --panel disable &  # For Wayland
-# or
+```
+**or**  
+```bash
 ibus-daemon -drxR &  # For X11
 ```
 
-AltGr not working
+### AltGr not working - Fixing AltGr (Level 3 & 4 Characters)
 
+#### The Problem  
+GNOME-based systems (including Linux Mint with Cinnamon) reset keyboard options when switching input methods. This causes AltGr to stop working after switching from Saswati Keyboard to English and back.
+
+#### The Solution - (3-Layer Defense) - It Automaticlly Handles in a robust way...
+1. **Engine-Level Fix (in main.py)**
+The engine now automatically re-applies AltGr configuration:  
+   - When enabled (do_enable)  
+   - When focused (do_focus_in)  
+   - With delayed retries (500ms and 1000ms) to override system resets  
+2. **System-Level Configuration (in install.sh)**
+   - The installer sets persistent gsettings for GNOME/Cinnamon: (gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:ralt_switch']")  
+3. **Autostart Script (created by installer)**  
+   - For stubborn systems, creates ~/.config/autostart/saswati-altgr.desktop that runs on login:
+bashsetxkbmap -option lv3:ralt_switch
+
+### 🐛 If AltGr Still Doesn't Work
+#### Manual verification:
+**Check if gsettings is set**  
 ```bash
-# For X11:
+gsettings get org.gnome.desktop.input-sources xkb-options
+```  
+**Should show**: ['lv3:ralt_switch']  
+**If not, set it manually**  
+```bash
+gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:ralt_switch']"
+```  
+**Test immediately**  
+```bash
 setxkbmap -option lv3:ralt_switch
+```  
+**Verify**  
+```bash
+xmodmap -pm | grep -i level3
+```  
+**Should show**: mod5  ISO_Level3_Shift (Right Alt)  
 
-# For Wayland (KDE):
-# System Settings → Keyboard → Advanced → "Key to choose 3rd level" → Right Alt
+#### For Wayland (KDE):
+```bash
+System Settings → Keyboard → Advanced → "Key to choose 3rd level" → Right Alt
 ```
 
-CapsLock still affecting typing
+### Resolving Language Switching Conflicts (X11 / Cinnamon / GNOME)
+On many Linux distributions, like Mint, the system's default keyboard shortcuts can interfere with IBus, leading to lag or failure when switching languages.
 
-Update to the latest version and reinstall.
+* **Disable System Shortcuts**: Open your OS **Keyboard Settings** (not IBus Preferences) and disable any shortcuts assigned to "Switch to next input source" (usually `Win+Space` or `Alt+Shift`).    
+
+**Example in Linix Mint:** 
+Go to **Menu > Keyboard > Layouts > Options > Switching to another layout** and ensure **Win+Space** is unchecked
+
+* **Configure IBus Shortcuts**: Open **IBus Preferences** (Right Click Ibus Icon in Panel), Click the Button next to **Next input method**, and **Apply** one of these recommended, non-conflicting combinations:
+    * **`Super+Alt+Space`** (Highly recommended for Mint and other modern X11 desktops or Gnome based Distros)
+    * **`Alt+Space`** (Preferred for classic X11 environments like Linux Mint)
 
 For more troubleshooting, see [Troubleshooting](https://github.com/bonanto/saswati-keyboard/blob/main/SETUP_GUIDE.md#troubleshooting)
 
@@ -226,22 +278,58 @@ CapsLock ON + Shift+K → ক (cancel out)
 
 ## 🗑️ Uninstallation
 
+### If you cloned the repository locally
+#### Go to the local folder first then use one of the two methods-
 ```bash
-# If you cloned the repository locally
 cd saswati-keyboard
-
-# Method 1: Make script executable and run (Standard)
+```
+#### Method 1: Make script executable and run (Standard)
+```bash
 chmod +x uninstall.sh
 sudo ./uninstall.sh
-
-# Method 2: Run directly via bash (Use if Method 1 fails)
+```
+#### Method 2: Run directly via bash (Use if Method 1 fails)
+```bash
 sudo bash uninstall.sh
-
-# Alternatively, download and run without cloning
+```
+#### Alternatively, download and run without cloning
+```bash
 curl -fsSL [https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh](https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh) | sudo bash
 ```
 
 Then remove the keyboard from your System Settings and **Restart**.
+
+### If you Installed using Install.sh (manually downloaded 3 files: Install.sh, main.py and Uninstall.sh)
+#### Open the folder in a Terminal and Run:  
+```bash
+sudo bash uninstall.sh
+```
+### If you Installed using DEB Package (Ubuntu / Mint / Debian):
+**To completely remove the package and its system configurations, run:**  
+
+```bash
+sudo apt purge saswati-keyboard
+```
+### If Installed via RPM Package (Fedora / RHEL / openSUSE)
+#### Depending on your distribution's package manager, run:  
+**For Fedora, RHEL, CentOS, or Rocky Linux**  
+
+```bash
+sudo dnf remove saswati-keyboard
+```
+**For openSUSE**  
+```bash
+sudo zypper remove saswati-keyboard
+```
+### Post-Uninstallation Steps (Required for all methods)
+After running your respective uninstallation command, clean up your user-specific cache and settings:
+
+1. **Clear the IBus cache** so your system forgets the engine:  
+   ```bash
+   rm -rf ~/.cache/ibus
+   ```
+2. **Remove the keyboard** from your OS System Settings (under Keyboard Layouts or Input Sources).
+3. **Restart your computer** to completely clear all keyboard hooks and restore your default desktop behavior.
 
 ---
 

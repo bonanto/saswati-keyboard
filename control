@@ -1,0 +1,10 @@
+Package: saswati-keyboard
+Version: 1.0.0
+Architecture: all
+Maintainer: Bonanto <bonanto18@protonmail.com>
+Depends: python3-gi, gir1.2-ibus-1.0, ibus, librsvg2-bin, imagemagick
+Section: utils
+Priority: optional
+Description: Saswati Bangla (India) Inscript Keyboard
+ A comprehensive Bengali Inscript keyboard layout for Linux using the IBus framework.
+

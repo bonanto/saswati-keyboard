@@ -49,18 +49,27 @@ The installer will:
 7. ✅ Create a custom icon
 
 ### Method 2: Manual Installation
-
+#### Step 1: Clone the repository
 ```bash
-# Step 1: Clone the repository
 git clone https://github.com/bonanto/saswati-keyboard.git
 cd saswati-keyboard
-
-# Step 2: Make scripts executable
+```
+#### Step 2: Make scripts executable  
+```bash
 chmod +x install.sh uninstall.sh
-
-# Step 3: Run the installer
+```
+#### Step 3: Run the installer  
+```bash
 sudo ./install.sh
 ```
+#### Alternatively run (should Step 3 fails):**  
+```bash
+sudo bash install.sh
+```
+
+### Install using Packages:
+**Download** the Provided **DEB** (for Ubuntu, Mint, Debian etc.) or **RPM** (for Fedora, RHEL, openSUSE etc), and Install using Package Managers or via Terminal. It automatically installs everything needed, and configures itself.  
+#### Now follow the [Post-Installation Setup](#post-installation-setup)
 
 ### Installation Process
 
@@ -312,52 +321,79 @@ This prevents accidental characters when exploring the keyboard.
 
 ### Issue 1: Keyboard Not Appearing in List
 
-**Solution:**
-
-1. Restart IBus:
-   ```bash
-   pkill ibus-daemon
-   ibus-daemon -drxR --panel disable &  # For Wayland
-   # OR
-   ibus-daemon -drxR &  # For X11
-   ```
-
-2. Clear IBus cache:
-   ```bash
-   rm -rf ~/.cache/ibus
-   ibus restart
-   ```
-
-3. Log out and log back in
-
-### Issue 2: AltGr (Right Alt) Not Working
-
-**For X11:**
+#### Solution
+#### Step 1. Restart IBus:
 ```bash
-setxkbmap -option lv3:ralt_switch
+pkill ibus-daemon
+ibus-daemon -drxR --panel disable &  #For Wayland
 ```
+**OR**  
+```bash
+ibus-daemon -drxR &  # For X11
+```
+#### Step 2. Clear IBus Cache:
+```bash
+rm -rf ~/.cache/ibus
+ibus restart
+```
+#### Step 3. - Log out and Log back in
+*================================================================*
+### Issue 2: AltGr (Right Alt) Not Working
+#### The Problem  
+GNOME-based systems (including Linux Mint with Cinnamon) reset keyboard options when switching input methods. This causes AltGr to stop working after switching from Saswati Keyboard to English and back.
 
-**For Wayland (KDE):**
-1. System Settings → Input Devices → Keyboard → Advanced
-2. Expand "Key to choose 3rd level"
-3. Check "Right Alt"
-4. Click Apply
+#### The Solution - (3-Layer Defense) - It Automaticlly Handles in a robust way...
+1. **Engine-Level Fix (in main.py)**
+The engine now automatically re-applies AltGr configuration:  
+   - When enabled (do_enable)  
+   - When focused (do_focus_in)  
+   - With delayed retries (500ms and 1000ms) to override system resets  
+2. **System-Level Configuration (in install.sh)**
+   - The installer sets persistent gsettings for GNOME/Cinnamon: (gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:ralt_switch']")  
+3. **Autostart Script (created by installer)**  
+   - For stubborn systems, creates ~/.config/autostart/saswati-altgr.desktop that runs on login:
+bashsetxkbmap -option lv3:ralt_switch
 
-**For Wayland (GNOME):**
+#### 🐛 If AltGr Still Doesn't Work
+#### Manual verification:
+**Check if gsettings is set**  
+```bash
+gsettings get org.gnome.desktop.input-sources xkb-options
+```  
+**Should show**: ['lv3:ralt_switch']  
+**If not, set it manually**  
 ```bash
 gsettings set org.gnome.desktop.input-sources xkb-options "['lv3:ralt_switch']"
-```
-
-**Verify AltGr is configured:**
+```  
+**Test immediately**  
 ```bash
-# Check current settings
-setxkbmap -print -verbose 10 | grep lv3
+setxkbmap -option lv3:ralt_switch
+```  
+**Verify**  
+```bash
+xmodmap -pm | grep -i level3
+```  
+**Should show**: mod5  ISO_Level3_Shift (Right Alt)  
 
-# For Wayland, check:
-localectl status
-```
+#### For Wayland (KDE):
+```bash
+System Settings → Keyboard → Advanced → "Key to choose 3rd level" → Right Alt
+```  
+*================================================================*
+### Issue 3: Resolving Language Switching Conflicts (X11 / Cinnamon / GNOME)
+On many Linux distributions, like Mint, the system's default keyboard shortcuts can interfere with IBus, leading to lag or failure when switching languages.
 
-### Issue 3: Characters Not Typing Correctly
+* **Disable System Shortcuts**: Open your OS **Keyboard Settings** (not IBus Preferences) and disable any shortcuts assigned to "Switch to next input source" (usually `Win+Space` or `Alt+Shift`).    
+
+**Example in Linix Mint:** 
+Go to **Menu > Keyboard > Layouts > Options > Switching to another layout** and ensure **Win+Space** is unchecked
+
+* **Configure IBus Shortcuts**: Open **IBus Preferences** (Right Click Ibus Icon in Panel), Click the Button next to **Next input method**, and **Apply** one of these recommended, non-conflicting combinations:
+    * **`Super+Alt+Space`** (Highly recommended for Mint and other modern X11 desktops or Gnome based Distros)
+    * **`Alt+Space`** (Preferred for classic X11 environments like Linux Mint)
+
+*================================================================*
+### Issue 4: Characters Not Typing Correctly
 
 **Check active layout:**
 1. Look at keyboard indicator in system tray
@@ -370,9 +406,9 @@ ls -l /usr/share/ibus-saswati/main.py
 ls -l /usr/share/ibus/component/saswati.xml
 ```
 
-Both files should exist.
-
-### Issue 4: Getting Environment Variable Warnings
+**Both files should exist.**  
+*================================================================*
+### Issue 5: Getting Environment Variable Warnings
 
 **Error message:**
 ```
@@ -398,9 +434,10 @@ Please unset QT_IM_MODULE and GTK_IM_MODULE...
    source ~/.bashrc
    ```
 
-4. Restart your computer
+4. Restart your computer 
 
-### Issue 5: CapsLock Still Affecting Typing
+*================================================================*
+### Issue 6: CapsLock Still Affecting Typing
 
 **Solution:**
 
@@ -409,9 +446,9 @@ Update to the latest version:
 cd saswati-keyboard
 git pull
 sudo ./install.sh
-```
-
-### Issue 6: Icon Not Showing
+``` 
+*================================================================*
+### Issue 7: Icon Not Showing
 
 **Solution:**
 
@@ -430,18 +467,20 @@ sudo ./install.sh
    ```bash
    rm -rf ~/.cache/ibus
    ibus restart
-   ```
+   ```  
 
-### Issue 7: Keyboard Works But System Shortcuts Don't
+*================================================================*
+### Issue 8: Keyboard Works But System Shortcuts Don't
 
 **Explanation:**
 This is normal! When Saswati is active:
 - Ctrl combinations work (Ctrl+C, Ctrl+V, etc.)
 - Left Alt combinations work (Alt+Tab, Alt+F4, etc.)
 - Super/Windows key works (Super+Space, etc.)
-- Right Alt is used for AltGr (typing Bengali characters)
+- Right Alt is used for AltGr (typing Bengali characters)  
 
-### Issue 8: NumPad Typing Bengali Numbers
+*================================================================*
+### Issue 9: NumPad Typing Bengali Numbers
 
 **This should NOT happen with Saswati.**
 
@@ -457,18 +496,51 @@ If it does:
 
 ## Uninstallation
 
-### Method 1: Using Uninstaller Script
-
+### If you cloned the repository locally
+#### Go to the local folder first then use one of the two methods-
 ```bash
-# If you have the repository
 cd saswati-keyboard
+```
+#### Method 1: Make script executable and run (Standard)
+```bash
+chmod +x uninstall.sh
 sudo ./uninstall.sh
-
-# Or download and run
-curl -fsSL https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh | sudo bash
+```
+#### Method 2: Run directly via bash (Use if Method 1 fails)
+```bash
+sudo bash uninstall.sh
+```
+#### Alternatively, download and run without cloning
+```bash
+curl -fsSL [https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh](https://raw.githubusercontent.com/bonanto/saswati-keyboard/main/uninstall.sh) | sudo bash
 ```
 
-### Method 2: Manual Uninstallation
+Then remove the keyboard from your System Settings and **Restart**.
+
+### If you Installed using Install.sh (manually downloaded 3 files: Install.sh, main.py and Uninstall.sh)
+#### Open the folder in a Terminal and Run:  
+```bash
+sudo bash uninstall.sh
+```
+### If you Installed using DEB Package (Ubuntu / Mint / Debian):
+**To completely remove the package and its system configurations, run:**  
+
+```bash
+sudo apt purge saswati-keyboard
+```
+### If Installed via RPM Package (Fedora / RHEL / openSUSE)
+#### Depending on your distribution's package manager, run:  
+**For Fedora, RHEL, CentOS, or Rocky Linux**  
+
+```bash
+sudo dnf remove saswati-keyboard
+```
+**For openSUSE**  
+```bash
+sudo zypper remove saswati-keyboard
+```
+
+### Manual Uninstallation
 
 ```bash
 # Stop IBus

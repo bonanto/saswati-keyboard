@@ -63,20 +63,27 @@ dpkg-sig --verify saswati-keyboard_1.0.0_all.deb
 
 ### 4. Generic Verification (Detached Signatures)
 
-If you are downloading a source tarball (`.tar.gz`) or prefer using detached signature files (`.sig` or `.asc`) provided in the GitHub Releases, you can use standard GPG commands on any Linux distribution (Arch, Alpine, Void, etc.).
+If you are downloading a source tarball (`.tar.gz`) or prefer using detached signature files (`.sig` or `.asc`) provided in the GitHub Releases, you can use standard GPG commands on any Linux distribution (Arch, Alpine, Void, etc.). Keep the Key file, the packages and the asc files in the same folder. Then open the folder in Terminal and follow the instructions:
 
-**Step A: Import the Key**  
+#### Step A: Import the Key**  
 
 ```bash
 gpg --import saswati-public.key
 ```
-**Step B: Verify the File**  
+#### Step B: Verify the Files**  
+**To verify the Source Tarball (.tar.gz):**  
 
 Ensure both the downloaded archive and the signature file are in the same directory, then run:  
 
 ```bash
-gpg --verify saswati-keyboard.tar.gz.asc saswati-keyboard.tar.gz
+gpg --verify saswati-keyboard-1.0.0.tar.gz.asc saswati-keyboard-1.0.0.tar.gz
+```  
+
+**To verify the Debian package (.deb):**  
+
+```bash
+gpg --verify saswati-keyboard_1.0.0_all.deb.asc saswati-keyboard_1.0.0_all.deb
 ```
-**Expected Output:** Look for the line `Good signature from "skb92 <your-email@example.com>"`. 
+**Expected Output:** Look for the line **`Good signature from "shyamal (Saswati Keyboard Package Signer) <bonanto18@protonmail.com>" [ultimate]`**. 
 
 > **⚠️ Note:** GPG might show a warning saying `This key is not certified with a trusted signature!`. This is normal and simply means I haven't explicitly marked the or paid some corporation to verify "Trust". As long as it says **Good signature**, the file's integrity is intact. Feel free to contact me.
