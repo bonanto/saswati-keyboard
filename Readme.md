@@ -26,11 +26,10 @@
 - **X11 and Wayland** - Automatic detection and configuration for both session types
 - **Auto-dependency installation** - Automatically installs required packages
 
-### 🔧 Professional Installation
+### 🔧 Seamless Installation
 - **Automatic detection** - Detects your OS, desktop environment, and session type
 - **Smart configuration** - Configures AltGr (Right Alt) properly for X11/Wayland
 - **No warnings** - Clean installation without environment variable conflicts
-- **Custom icon** - Beautiful "শাশ্বতী" icon in IBus menu
 - **One-command installation** - Simple curl/wget installation from GitHub
 
 ### 🎨 User Experience
